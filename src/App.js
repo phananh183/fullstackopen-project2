@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import Form from './components/Form'
 import NameList from './components/Namelist'
-import axios from 'axios'
+import phoneNumServices from './services/phoneNums'
 
 const App = () => {
 
@@ -30,21 +30,36 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
     }
     else {
-      setPersons(persons.concat(nameObj))
-      setNewName('')
-      setNewNumber('')
+      phoneNumServices.create(nameObj)
+        .then(newEntry => {
+          console.log(newEntry)
+          setPersons(persons.concat(newEntry))
+          setNewName('')
+          setNewNumber('')
+        })
+        .catch(error => {
+          console.log(error)
+          alert(error)
+        })
     }
   }
 
-  const deleteAllNames = () => setPersons([])
-
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(res => {
-        setPersons(res.data)
+      phoneNumServices
+      .getAll()
+      .then(phoneNums => {
+        setPersons(phoneNums)
       })
   }, [])
+
+  const deleteEntry = id => {
+    phoneNumServices
+      .deleteEntry(id)
+      .then(response => {
+        console.log(response)
+        setPersons(persons.filter(person => person.id !== id ))
+      })
+  }
 
   return (
     <div>
@@ -57,9 +72,8 @@ const App = () => {
         newNumber={newNumber}
         handleNumberChange={handleNumberChange}
         />
-      <button onClick={deleteAllNames}>delete all</button>
       <h2>Numbers</h2>
-      <NameList persons={entriesToShow} />
+      <NameList persons={entriesToShow} deleteNum={deleteEntry}/>
     </div>
   )
 }
