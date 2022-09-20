@@ -52,12 +52,12 @@ const App = () => {
       })
   }, [])
 
-  const deleteEntry = id => {
+  const deleteEntry = personToDel => {
+    if (window.confirm(`Delete ${personToDel.name}?`))
     phoneNumServices
-      .deleteEntry(id)
-      .then(response => {
-        console.log(response)
-        setPersons(persons.filter(person => person.id !== id ))
+      .deleteNum(personToDel.id)
+      .then(() => {
+        setPersons(persons.filter(person => person.id !== personToDel.id ))
       })
   }
 

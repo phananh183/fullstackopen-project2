@@ -16,24 +16,14 @@
       "id": 3
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
+      "name": "Mary",
+      "number": "98765412",
       "id": 4
     },
     {
-      "name": "Phan",
-      "number": "112233",
+      "name": "pahn",
+      "number": "1122334411",
       "id": 5
-    },
-    {
-      "name": "kehui",
-      "number": "84286131",
-      "id": 6
-    },
-    {
-      "name": "soh seng siong",
-      "number": "9999999",
-      "id": 7
     }
   ]
 }

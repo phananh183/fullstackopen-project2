@@ -1,4 +1,5 @@
 import React from "react";
+import Entry from "./Entry";
 
 const NameList = ({ persons, deleteNum }) => {
     return (
@@ -6,10 +7,7 @@ const NameList = ({ persons, deleteNum }) => {
         {persons.length === 0 
         ? 'No names available' 
         : persons.map(person =>
-          <div key={person.id}>
-            {person.name} {person.number}
-            <button onClick={deleteNum}>delete</button>
-          </div>
+          <Entry key={person.id} person={person} deleteNum={deleteNum} />
         )}
       </>
     )

@@ -13,7 +13,8 @@ const create = nameObj => {
 }
 
 const deleteNum = id => {
-    axios.delete(`${baseUrl}/${id}`)
+    const req = axios.delete(`${baseUrl}/${id}`)
+    return req
 }
 
 const phoneNumServices = { getAll, create, deleteNum }
