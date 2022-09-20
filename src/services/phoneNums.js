@@ -17,5 +17,9 @@ const deleteNum = id => {
     return req
 }
 
-const phoneNumServices = { getAll, create, deleteNum }
+const update = (id, newNum) => {
+    const req = axios.put(`${baseUrl}/${id}`, newNum)
+    return req
+}
+const phoneNumServices = { getAll, create, deleteNum, update }
 export default phoneNumServices
