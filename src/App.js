@@ -46,14 +46,24 @@ const App = () => {
           }, 3000)
         })
         .catch(e => {
-          console.log(e)
-          setNotiMessage(`${existingName.name} has already been deleted from server.`)
-          setNotiType(true)
-          setPersons(persons.filter(person => person.id !== existingName.id))
-          setTimeout(() => {
+          console.log(e.response.status)
+          const errorStatus = e.response.status
+          if (errorStatus === 400) {
+            setNotiMessage(e.response.data.error)
+            setNotiType(true)
+            setTimeout(() => {
             setNotiMessage(null)
             setNotiType(false)
           }, 3000)
+          } else if (errorStatus === 404) {
+            setNotiMessage(`${existingName.name} is already deleted from server`)
+            setNotiType(true)
+            setPersons(persons.filter(person => person.id !== existingName.id))
+            setTimeout(() => {
+            setNotiMessage(null)
+            setNotiType(false)
+            }, 3000)
+          }
         })
     }
     else {
@@ -69,8 +79,7 @@ const App = () => {
           }, 3000)
         })
         .catch(error => {
-          console.log(error)
-          alert(error)
+          console.log(error.response.data.error)
         })
     }
   }
